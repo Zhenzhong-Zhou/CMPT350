@@ -6,7 +6,19 @@ const Category = require("../../models/admin/category");
  * GET category index route
  */
 router.get("/", async (req, res) => {
-    res.render("admin/categories/category");
+    let searchOptions = {};
+    if (req.query.category != null && req.query.category !== "") {
+        searchOptions.category = new RegExp(req.query.category, "i");
+    }
+    try {
+        const categories = await Category.find(searchOptions).exec();
+        res.render("admin/categories/category", {
+            categories: categories,
+            searchOptions: req.query
+        });
+    }catch (e) {
+        res.render("admin");
+    }
 });
 
 /*
