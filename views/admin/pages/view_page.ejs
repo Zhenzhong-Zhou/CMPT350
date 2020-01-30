@@ -1,4 +1,4 @@
-<%- include("../partials/admin/header.ejs"); -%>
+<%- include("../../partials/admin/header.ejs"); -%>
 <br>
 <br>
 <a href="/admin/pages">Back To Pages</a>
@@ -13,6 +13,10 @@
 </div>
 
 <a href="/admin/pages/edit_page/<%=pages._id%>">Edit</a>
-<%- include("../partials/deleteForm.ejs", {url: `/admin/pages/${pages._id}`}); -%>
+<%if (pages.slug === "home") {%>
+    <td></td>
+<%}else {%>
+    <%- include("../../partials/deleteForm.ejs", {url: `/admin/pages/${pages._id}`}); -%>
+<%}%>
 
-<%- include("../layouts/admin/layout.ejs"); -%>
+<%- include("../../layouts/admin/layout.ejs"); -%>

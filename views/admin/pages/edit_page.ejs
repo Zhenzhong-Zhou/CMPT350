@@ -1,4 +1,4 @@
-<%- include("../partials/admin/header.ejs"); -%>
+<%- include("../../partials/admin/header.ejs"); -%>
 <br>
 <br>
 <h1>Edit Page</h1>
@@ -6,10 +6,10 @@
 <br>
 <br>
 <form action="/admin/pages/edit_page/<%=pages._id%>?_method=PUT" method="post">
-    <%- include("../admin/_form_fileds.ejs"); -%>
+    <%- include("../../admin/pages/_form_fileds.ejs"); -%>
     <a href="/admin/pages/">Cancel</a>
     <button type="submit">Update</button>
 </form>
 <br>
 <br>
-<%- include("../layouts/admin/layout.ejs"); -%>
+<%- include("../../layouts/admin/layout.ejs"); -%>

@@ -8,7 +8,7 @@ const Page = require("../../models/admin/page");
 router.get("/", async (req, res) => {
     try {
         const pages = await Page.find({}).sort({sorting: 1}).exec();
-        res.render("admin/page", {
+        res.render("admin/pages/page", {
             pages: pages
         });
     }catch (e) {
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
  * GET add_page route
  */
 router.get("/add_page", (req, res) => {
-    res.render("admin/add_page", {pages: new Page()});
+    res.render("admin/pages/add_page", {pages: new Page()});
 });
 
 /*
@@ -37,7 +37,7 @@ router.post("/add_page", async (req, res) => {
         await page.save();
         res.redirect("/admin/pages");
     }catch (e) {
-        res.render("admin/page", {
+        res.render("admin/pages/page", {
             page: page,
             errorMessage: "Error Creating Page: must fill all info"
         })
@@ -71,7 +71,7 @@ router.post("/reorder_pages", async (req, res) => {
 router.get("/view_page/:id", async (req, res) => {
     try {
         const pages = await Page.findById(req.params.id).exec();
-        res.render("admin/view_page", {pages: pages})
+        res.render("admin/pages/view_page", {pages: pages})
     }catch (e) {
         res.redirect("/");
     }
@@ -85,7 +85,7 @@ router.get("/edit_page/:id", async (req, res) => {
         if (err) {
             return console.log(err);
         }else {
-            res.render("admin/edit_page", {
+            res.render("admin/pages/edit_page", {
                 pages: page
             });
         }
@@ -106,7 +106,7 @@ router.put("/edit_page/:id", async (req, res) => {
         res.redirect("/admin/pages");
     }catch (e) {
         if (page != null) {
-            res.render("admin/page", {
+            res.render("admin/pages/page", {
                 page: page,
                 errorMessage: "Error Editing Page"
             });
