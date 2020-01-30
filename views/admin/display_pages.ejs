@@ -1,0 +1,37 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<table class="table table-striped sorting">
+    <thead>
+    <tr class="home">
+        <th>Title</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%if (locals.pages != null) {%>
+        <%pages.forEach(page => {%>
+        <tr id="id_<%=page._id%>" class="<%=page.slug%>">
+            <td><%=page.title%></td>
+            <td><a href="/admin/pages/edit_page/<%=page._id%>">Edit</a></td>
+            <%if (page.slug === "home") {%>
+                <td></td>
+            <%}else {%>
+                <td><a class="confirmDeletion" href="/admin/pages/delete_page/<%=page._id%>">Delete</a> </td>
+            <%}%>
+        </tr>
+        <%})%>
+    <%}%>
+    </tbody>
+</table>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script>
+    $('tbody').sortable({
+        items: "tr:not('.home')",
+        placeholder: "ui-state-highlight",
+        update: function () {
+            let ids = $('tbody').sortable("serialize");
+            let url = "/admin/pages/reorder_pages";
+            $.post(url, ids);
+        }
+    });
+</script>

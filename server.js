@@ -17,7 +17,8 @@ const app = express();
 
 // Set up routes
 const indexRouter = require("./routes/user/index");
-const indexAdminRouter = require("./routes/admin/pages");
+const adminIndexRouter = require("./routes/admin/index");
+const adminPageRouter = require("./routes/admin/pages");
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -42,7 +43,8 @@ app.use(session({
 
 // app use routers
 app.use("/", indexRouter);
-app.use("/admin", indexAdminRouter);
+app.use("/admin", adminIndexRouter);
+app.use("/admin/pages", adminPageRouter);
 
 
 let port = 3000;
