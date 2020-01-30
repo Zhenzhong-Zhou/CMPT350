@@ -20,6 +20,7 @@ const app = express();
 const indexRouter = require("./routes/user/index");
 const adminIndexRouter = require("./routes/admin/index");
 const adminPageRouter = require("./routes/admin/pages");
+const adminCategoryRouter = require("./routes/admin/categories");
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -49,6 +50,7 @@ app.use(methodOverride("_method"));
 app.use("/", indexRouter);
 app.use("/admin", adminIndexRouter);
 app.use("/admin/pages", adminPageRouter);
+app.use("/admin/categories", adminCategoryRouter);
 
 
 let port = 3000;

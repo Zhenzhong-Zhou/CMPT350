@@ -6,7 +6,7 @@ const Category = require("../../models/admin/category");
  * GET category index route
  */
 router.get("/", async (req, res) => {
-   res.send("Category");
+    res.render("admin/categories/categories");
 });
 
 /*
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 /*
  * POST add_category route
  */
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     res.send("Category");
 });
 
