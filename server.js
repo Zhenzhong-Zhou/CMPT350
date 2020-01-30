@@ -30,7 +30,7 @@ app.use(express.static("public"));
 // create application/json parser
 app.use(bodyParser.json());
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({limit: "10mb", extended: false}));
 
 // express-session middleware
 app.use(session({

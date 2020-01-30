@@ -1,0 +1,14 @@
+<%- include("../partials/admin/header.ejs"); -%>
+<br>
+<br>
+<h1>add_page</h1>
+<button type="button">add</button>
+<label>Name</label>
+<input type="text" name="name" value="<%=pages.title%>">
+<form action="/page" method="post">
+    <a href="/page">Cancel</a>
+    <button type="submit">Create</button>
+</form>
+<br>
+<br>
+<%- include("../layouts/admin/layout.ejs"); -%>
