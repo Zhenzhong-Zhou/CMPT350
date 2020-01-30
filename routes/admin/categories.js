@@ -6,7 +6,7 @@ const Category = require("../../models/admin/category");
  * GET category index route
  */
 router.get("/", async (req, res) => {
-    res.render("admin/categories/categories");
+    res.render("admin/categories/category");
 });
 
 /*
@@ -20,19 +20,18 @@ router.get("/add_category", async (req, res) => {
  * POST add_category route
  */
 router.post("/add_category", async (req, res) => {
-    let categories = new Category({
-        categories: req.body.category
+    let category = new Category({
+        category: req.body.category
     });
-    categories.save((err, newCategory) => {
-        if (err) {
-            res.render("admin/categories/add_category", {
-                categories: categories,
-                errorMessage: "Error Creating Category"
-            });
-        }else {
-            res.redirect("admin/categories");
-        }
-    });
+    try {
+        await category.save();
+        res.redirect("/admin/categories");
+    }catch (e) {
+        res.render("admin/categories/category", {
+            category: category,
+            errorMessage: "Error Creating Category"
+        });
+    }
 });
 
 /*
