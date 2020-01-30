@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const methodOverride = require("method-override");
 const config = require("./config/database");
 
 // Connect to database
@@ -33,13 +34,16 @@ app.use(bodyParser.json());
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({limit: "10mb", extended: false}));
 
-// express-session middleware
+// Express-session middleware
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }
 }));
+
+// Method Overrider Library
+app.use(methodOverride("_method"));
 
 // app use routers
 app.use("/", indexRouter);

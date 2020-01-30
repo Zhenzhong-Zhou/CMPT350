@@ -3,8 +3,13 @@
 <br>
 <h1>Add Page</h1>
 <a href="/admin/pages">Back To Pages</a>
-<%- include("../admin/_form_fileds.ejs"); -%>
 <br>
 <br>
-
+<form action="/admin/pages/add_page" method="post">
+    <%- include("../admin/_form_fileds.ejs"); -%>
+    <a href="/admin/pages">Cancel</a>
+    <button type="submit">Create</button>
+</form>
+<br>
+<br>
 <%- include("../layouts/admin/layout.ejs"); -%>

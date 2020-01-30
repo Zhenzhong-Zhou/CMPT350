@@ -3,6 +3,7 @@
     <thead>
     <tr class="home">
         <th>Title</th>
+        <th>View</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -12,11 +13,12 @@
         <%pages.forEach(page => {%>
         <tr id="id_<%=page._id%>" class="<%=page.slug%>">
             <td><%=page.title%></td>
+            <td><a href="/admin/pages/view_page/<%=page._id%>">View</a></td>
             <td><a href="/admin/pages/edit_page/<%=page._id%>">Edit</a></td>
             <%if (page.slug === "home") {%>
                 <td></td>
             <%}else {%>
-                <td><a class="confirmDeletion" href="/admin/pages/delete_page/<%=page._id%>">Delete</a> </td>
+                <%- include("../partials/deleteForm.ejs", {url: `/admin/pages/${page._id}`}); -%>
             <%}%>
         </tr>
         <%})%>

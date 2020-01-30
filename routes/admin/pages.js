@@ -35,8 +35,8 @@ router.post("/add_page", async (req, res) => {
     });
     try {
         const newPage = await page.save();
-        // res.redirect(`admin/${newPage.id}`);
-        res.redirect("/admin/pages");
+        res.redirect(`admin/${newPage.id}`);
+        // res.redirect("/admin/pages");
     }catch (e) {
         res.render("admin/page", {
             page: page,
@@ -65,5 +65,57 @@ router.post("/reorder_pages", async (req, res) => {
         })(count);
     }
 });
+
+/*
+ * GET view_page route
+ */
+router.get("/view_page/:id", (req, res) => {
+    res.send("View Page: " + req.params.id);
+});
+
+/*
+ * GET edit_page route
+ */
+router.get("/edit_page/:id", async (req, res) => {
+    try {
+        const pages = Page.findById(req.params.id);
+        res.render("admin/edit_page", {pages: pages});
+    }catch (e) {
+        res.render("admin/pages");
+    }
+});
+
+/*
+ * PUT update_page route
+ */
+router.put("/update_page/:id", async (req, res) => {
+    let page;
+    try {
+        page = await Page.findById(req.params.id);
+        page.title = req.body.title;
+        page.slug = req.body.slug;
+        page.content = req.body.content;
+        await page.save();
+        res.redirect(`/admin/${page.id}`);
+    }catch (e) {
+        if (page == null) {
+            res.redirect("admin");
+        }else {
+            res.render("admin/edit_page", {
+                page: page,
+                errorMessage: "Error Updating Page"
+            })
+        }
+    }
+});
+
+/*
+ * DELETE delete_page route
+ */
+router.delete("/:id", (req, res) => {
+    res.send("Delete Page: " + req.params.id);
+});
+
+
 
 module.exports = router;
