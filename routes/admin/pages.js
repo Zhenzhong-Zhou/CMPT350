@@ -34,13 +34,12 @@ router.post("/add_page", async (req, res) => {
         sorting: 0
     });
     try {
-        const newPage = await page.save();
-        res.redirect(`admin/${newPage.id}`);
-        // res.redirect("/admin/pages");
+        await page.save();
+        res.redirect("/admin/pages");
     }catch (e) {
         res.render("admin/page", {
             page: page,
-            errorMessage: "Error Creating Page"
+            errorMessage: "Error Creating Page: must fill all info"
         })
     }
 });
@@ -69,26 +68,34 @@ router.post("/reorder_pages", async (req, res) => {
 /*
  * GET view_page route
  */
-router.get("/view_page/:id", (req, res) => {
-    res.send("View Page: " + req.params.id);
+router.get("/view_page/:id", async (req, res) => {
+    try {
+        const pages = await Page.findById(req.params.id).exec();
+        res.render("admin/view_page", {pages: pages})
+    }catch (e) {
+        res.redirect("/");
+    }
 });
 
 /*
  * GET edit_page route
  */
 router.get("/edit_page/:id", async (req, res) => {
-    try {
-        const pages = Page.findById(req.params.id);
-        res.render("admin/edit_page", {pages: pages});
-    }catch (e) {
-        res.render("admin/pages");
-    }
+    Page.findById(req.params.id, (err, page) => {
+        if (err) {
+            return console.log(err);
+        }else {
+            res.render("admin/edit_page", {
+                pages: page
+            });
+        }
+    });
 });
 
 /*
  * PUT update_page route
  */
-router.put("/update_page/:id", async (req, res) => {
+router.put("/edit_page/:id", async (req, res) => {
     let page;
     try {
         page = await Page.findById(req.params.id);
@@ -96,15 +103,15 @@ router.put("/update_page/:id", async (req, res) => {
         page.slug = req.body.slug;
         page.content = req.body.content;
         await page.save();
-        res.redirect(`/admin/${page.id}`);
+        res.redirect("/admin/pages");
     }catch (e) {
-        if (page == null) {
-            res.redirect("admin");
-        }else {
-            res.render("admin/edit_page", {
+        if (page != null) {
+            res.render("admin/page", {
                 page: page,
-                errorMessage: "Error Updating Page"
-            })
+                errorMessage: "Error Editing Page"
+            });
+        }else {
+            res.redirect("/");
         }
     }
 });
@@ -112,10 +119,19 @@ router.put("/update_page/:id", async (req, res) => {
 /*
  * DELETE delete_page route
  */
-router.delete("/:id", (req, res) => {
-    res.send("Delete Page: " + req.params.id);
+router.delete("/:id", async (req, res) => {
+    let page;
+    try {
+        page = await Page.findById(req.params.id);
+        await page.remove();
+        res.redirect("/admin/pages");
+    }catch (e) {
+        if (page == null) {
+            res.redirect("/");
+        }else {
+            res.redirect("/admin/pages");
+        }
+    }
 });
-
-
 
 module.exports = router;

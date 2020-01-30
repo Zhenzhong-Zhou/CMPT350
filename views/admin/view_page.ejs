@@ -1,0 +1,18 @@
+<%- include("../partials/admin/header.ejs"); -%>
+<br>
+<br>
+<a href="/admin/pages">Back To Pages</a>
+<h1><%=pages.title%></h1>
+<div>
+    <label>Slug: </label>
+    <p><%=pages.slug%></p>
+</div>
+<div>
+    <label>Content: </label>
+    <p><%=pages.content%></p>
+</div>
+
+<a href="/admin/pages/edit_page/<%=pages._id%>">Edit</a>
+<%- include("../partials/deleteForm.ejs", {url: `/admin/pages/${pages._id}`}); -%>
+
+<%- include("../layouts/admin/layout.ejs"); -%>

@@ -1,0 +1,40 @@
+// // let page = await Page.findById(req.params.id);
+    // let title = req.body.title;
+    // let slug = req.body.slug.replace(/\s+/g, "-").toLowerCase();
+    // if (slug === "") slug = title.replace(/\s+/g, "-").toLowerCase();
+    // let content = req.body.content;
+    // let id = req.params.id;
+    //
+    // if (page == null) {
+    //     res.render("admin/page/edit_page", {
+    //         errorMessage: "Error Updating Page",
+    //         title: title,
+    //         slug: slug,
+    //         content: content,
+    //         id: id
+    //     });
+    // }else {
+    //     Page.findOne({slug: slug, _id: {'$ne': id}}, (err, page) => {
+    //         if (page) {
+    //             res.render("admin/page/edit_page", {
+    //                 title: title,
+    //                 slug: slug,
+    //                 content: content,
+    //                 id: id
+    //             });
+    //         }else {
+    //             Page.findById(id, (err, page) => {
+    //                 if (err) return console.log(err);
+    //
+    //                 page.title = title;
+    //                 page.slug = slug;
+    //                 page.content = content;
+    //
+    //                 page.save((err) => {
+    //                     if (err) return console.log(err);
+    //                     res.redirect("/admin/pages");
+    //                 });
+    //             });
+    //         }
+    //     });
+    // }
