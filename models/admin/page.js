@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 
 // Page Schema
 const pageSchema = mongoose.Schema({
-    title:{
+    title: {
         type: String,
         required: true
     },
-    slug:{
+    slug: {
         type: String,
         required: true
     },
-    content:{
+    content: {
         type: String,
         required: true
     },
-    sorting:{
+    sorting: {
         type: Number
     }
 });

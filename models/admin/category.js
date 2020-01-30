@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 // Category Schema
 const categorySchema = mongoose.Schema({
-    title:{
+    category: {
         type: String,
         required: true
     },
-    slug:{
+    slug: {
         type: String
     }
 });
