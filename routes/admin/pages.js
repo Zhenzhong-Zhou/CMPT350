@@ -93,7 +93,7 @@ router.get("/edit_page/:id", async (req, res) => {
 });
 
 /*
- * PUT update_page route
+ * PUT edit_page route
  */
 router.put("/edit_page/:id", async (req, res) => {
     let page;

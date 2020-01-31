@@ -1,0 +1,15 @@
+<%- include("../../partials/admin/header.ejs"); -%>
+<br>
+<br>
+<h1>Edit Category</h1>
+<a href="/admin/categories">Back To Categories</a>
+<br>
+<br>
+<form action="/admin/categories/edit_categories/<%=categories._id%>?_method=PUT" method="post">
+    <%- include("../../admin/categories/_form_fileds.ejs"); -%>
+    <a href="/admin/categories/">Cancel</a>
+    <button type="submit">Update</button>
+</form>
+<br>
+<br>
+<%- include("../../layouts/admin/layout.ejs"); -%>

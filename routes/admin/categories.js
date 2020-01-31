@@ -47,10 +47,39 @@ router.post("/add_category", async (req, res) => {
 });
 
 /*
+ * GET view_category route
+ */
+router.get("/view_category/:id", async (req, res) => {
+    res.send("View Category: " + req.params.id);
+});
+
+/*
  * GET edit_category route
  */
-router.get("/", async (req, res) => {
-    res.send("Category");
+router.get("/edit_category/:id", async (req, res) => {
+    Category.findById(req.params.id, (err, category) => {
+        if (err) {
+            return console.log(err);
+        }else {
+            res.render("admin/categories/edit_category", {
+                categories: category
+            });
+        }
+    });
+});
+
+/*
+ * PUT edit_category route
+ */
+router.put("/edit_category/:id", async (req, res) => {
+    res.send("PUT Edit Category: " + req.params.id);
+});
+
+/*
+ * DELETE delete_category route
+ */
+router.delete("/:id", async (req, res) => {
+    res.send("Delete Category: " + req.params.id);
 });
 
 module.exports = router;
