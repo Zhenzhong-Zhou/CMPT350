@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%if (locals.categories != null) {%>
+        <%products.forEach(product => {%>
+    <tr>
+        <td><%=product.category%></td>
+        <td><a href="/admin/pages/view_page/<%=product._id%>">View</a></td>
+        <td><a href="/admin/pages/edit_page/<%=product._id%>">Edit</a></td>
+        <%- include("../../partials/deleteForm.ejs", {url: `/admin/products/${product._id}`}); -%>
+    </tr>
+    <%})%>
+    <%}%>
+    </tbody>
+</table>

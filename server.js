@@ -21,6 +21,7 @@ const indexRouter = require("./routes/user/index");
 const adminIndexRouter = require("./routes/admin/index");
 const adminPageRouter = require("./routes/admin/pages");
 const adminCategoryRouter = require("./routes/admin/categories");
+const adminProductRouter = require("./routes/admin/products");
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -51,7 +52,7 @@ app.use("/", indexRouter);
 app.use("/admin", adminIndexRouter);
 app.use("/admin/pages", adminPageRouter);
 app.use("/admin/categories", adminCategoryRouter);
-
+app.use("/admin/products", adminProductRouter);
 
 let port = 3000;
 app.listen(process.env.PORT || port, () => {

@@ -1,0 +1,22 @@
+<div>
+    <label>Product</label>
+    <input type="text" name="product" placeholder="Product" value="<%=products.product%>">
+</div>
+
+<div>
+    <label>Category</label>
+    <select class="product_category" name = "category">
+        <%categories.forEach(category => {%>
+            <%if (category.id === products.category) {%>
+                <option selected label="<%=category.category%>" value="<%=category.id%>">
+            <%}else {%>
+                <option label="<%=category.category%>" value="<%=category.id%>">
+                <%}%>
+        <%})%>
+    </select>
+</div>
+
+<div>
+    <label>Price</label>
+    <input type="text" name="price" placeholder="Price" value="<%=products.price%>">
+</div>

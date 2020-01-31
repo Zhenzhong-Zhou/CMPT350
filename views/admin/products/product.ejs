@@ -1,0 +1,20 @@
+<%- include("../../partials/admin/header.ejs"); -%>
+<h1>Search Products</h1>
+<label>Category</label>
+<form action="/admin/products" method="get">
+    <input type="text" name="products" value="<%=products.product%>">
+    <button type="submit">Search</button>
+</form>
+<a href="/admin/products/add_product">Add a New Product</a>
+<br>
+<br>
+
+<div>
+    <%- include("../../partials/errorMessage.ejs"); -%>
+</div>
+
+<br>
+<%- include("../../admin/products/display_products.ejs"); -%>
+
+<%- include("../../layouts/admin/layout.ejs"); -%>
+

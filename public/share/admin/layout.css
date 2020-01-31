@@ -76,3 +76,7 @@ body {
 .ui-state-highlight {
     border: 1px dashed #cccccc;
 }
+
+.product_category {
+    width: 100px;
+}
