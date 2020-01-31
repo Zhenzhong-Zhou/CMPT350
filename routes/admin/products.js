@@ -49,20 +49,6 @@ router.post("/add_product", async (req, res) => {
     }
 });
 
-async function renderNewPage(res, products, hasError = false) {
-    try {
-        const categories = await Category.find({});
-        const params = {
-            categories: categories,
-            products: products
-        };
-        if (hasError) params.errorMessage = "Error Creating Product";
-        res.render("admin/products/add_product", params);
-    }catch (e) {
-        res.redirect("admin/products");
-    }
-}
-
 /*
  * GET view_product route
  */
@@ -111,6 +97,20 @@ function saveImage(product, imageEncode) {
     if (image != null && imageMimeTypes.includes(image.type)) {
         product.productImage = new Buffer.from(image.data, 'base64');
         product.coverImageType = image.type;
+    }
+}
+
+async function renderNewPage(res, products, hasError = false) {
+    try {
+        const categories = await Category.find({});
+        const params = {
+            categories: categories,
+            products: products
+        };
+        if (hasError) params.errorMessage = "Error Creating Product";
+        res.render("admin/products/add_product", params);
+    }catch (e) {
+        res.redirect("admin/products");
     }
 }
 
