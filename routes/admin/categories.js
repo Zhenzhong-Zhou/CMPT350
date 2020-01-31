@@ -50,7 +50,12 @@ router.post("/add_category", async (req, res) => {
  * GET view_category route
  */
 router.get("/view_category/:id", async (req, res) => {
-    res.send("View Category: " + req.params.id);
+    try {
+        const categories = await Category.findById(req.params.id).exec();
+        res.render("admin/categories/view_category", {categories: categories})
+    }catch (e) {
+        res.redirect("/");
+    }
 });
 
 /*

@@ -1,0 +1,14 @@
+<%- include("../../partials/admin/header.ejs"); -%>
+<br>
+<br>
+<a href="/admin/categories">Back To Categories</a>
+<h1><%=categories.category%></h1>
+
+
+<a href="/admin/pages/edit_page/<%=categories._id%>">Edit</a>
+
+
+<%- include("../../partials/deleteForm.ejs", {url: `/admin/categories/${categories._id}`}); -%>
+
+
+<%- include("../../layouts/admin/layout.ejs"); -%>

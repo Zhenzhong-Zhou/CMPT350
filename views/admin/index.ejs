@@ -1,37 +1,15 @@
 <%- include("../layouts/admin/layout.ejs"); -%>
 <%- include("../partials/admin/header.ejs"); -%>
 <h1>Recently Changes</h1>
-<table class="table table-striped sorting">
-    <thead>
-    <tr class="home">
-        <th>Title</th>
-        <th>View</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%if (locals.pages != null) {%>
-    <%pages.forEach(page => {%>
-    <tr id="id_<%=page._id%>" class="<%=page.slug%>">
-        <td><%=page.title%></td>
-        <td><a href="/admin/pages/view_page/<%=page._id%>">View</a></td>
-        <td><a href="/admin/pages/edit_page/<%=page._id%>">Edit</a></td>
-        <%if (page.slug === "home") {%>
-            <td></td>
-        <%}else {%>
-            <%- include("../partials/deleteForm.ejs", {url: `/admin/pages/${page._id}`}); -%>
-        <%}%>
-    </tr>
-    <%})%>
-    <%}%>
-    </tbody>
-</table>
-
+<%- include("../admin/pages/display_pages.ejs"); -%>
+<%- include("../admin/categories/display_categories.ejs"); -%>
+<h1>bugs cannot display category</h1>
 <div>
-    <%products.forEach(product => {%>
-        <img height="150" width="100" src="<%=product.coverImagePath%>">
-    <%})%>
+    <%if (locals.products != null) {%>
+        <%products.forEach(product => {%>
+            <img height="150" width="100" src="<%=product.coverImagePath%>">
+        <%})%>
+    <%}%>
 </div>
 
 <%- include("../partials/admin/footer.ejs"); -%>
