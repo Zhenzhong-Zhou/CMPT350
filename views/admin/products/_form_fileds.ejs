@@ -8,9 +8,9 @@
     <select class="product_category" name = "category">
         <%categories.forEach(category => {%>
             <%if (category.id === products.category) {%>
-                <option class="category_name" selected label="<%=category.category%>" value="<%=category.id%>">
+                <option selected label="<%=category.category%>" value="<%=category.id%>"></option>
             <%}else {%>
-                <option class="category_name" label="<%=category.category%>" value="<%=category.id%>">
+                <option label="<%=category.category%>" value="<%=category.id%>"><%=category.category%></option>
                 <%}%>
         <%})%>
     </select>

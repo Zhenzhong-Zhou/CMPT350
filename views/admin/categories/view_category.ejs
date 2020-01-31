@@ -2,13 +2,14 @@
 <br>
 <br>
 <a href="/admin/categories">Back To Categories</a>
-<h1><%=categories.category%></h1>
-
-
-<a href="/admin/pages/edit_page/<%=categories._id%>">Edit</a>
-
-
-<%- include("../../partials/deleteForm.ejs", {url: `/admin/categories/${categories._id}`}); -%>
-
+<h1><%=category.category%></h1>
+<a href="/admin/categories/edit_category/<%=category._id%>">Edit</a>
+<%- include("../../partials/deleteForm.ejs", {url: `/admin/categories/${category._id}`}); -%>
+<%if (productsByCategory.length > 0) {%>
+    <h2>Products By Category</h2>
+    <%productsByCategory.forEach(product => {%>
+        <img height="150" width="100" src="<%=product.coverImagePath%>">
+    <%})%>
+<%}%>
 
 <%- include("../../layouts/admin/layout.ejs"); -%>

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Product = require("../../models/admin/product");
 
 // Category Schema
 const categorySchema = mongoose.Schema({
@@ -9,6 +10,18 @@ const categorySchema = mongoose.Schema({
     slug: {
         type: String
     }
+});
+
+categorySchema.pre("remove", function (next) {
+    Product.find({category: this.id}, (err, categories) => {
+        if (err) {
+            next(err);
+        }else if (categories.length > 0) {
+            next(new Error("This category has products still!!!!"));
+        }else {
+            next();
+        }
+    })
 });
 
 module.exports = mongoose.model("Category", categorySchema);

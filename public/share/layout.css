@@ -62,3 +62,7 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.category_name{
+    color: blue;
+}

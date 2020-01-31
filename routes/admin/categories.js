@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Category = require("../../models/admin/category");
+const Product = require("../../models/admin/product");
 
 /*
  * GET category index route
@@ -51,9 +52,14 @@ router.post("/add_category", async (req, res) => {
  */
 router.get("/view_category/:id", async (req, res) => {
     try {
-        const categories = await Category.findById(req.params.id).exec();
-        res.render("admin/categories/view_category", {categories: categories})
+        const category = await Category.findById(req.params.id);
+        const products = await Product.find({category: category.id}).limit(5).exec();
+        res.render("admin/categories/view_category", {
+            category: category,
+            productsByCategory: products
+        })
     }catch (e) {
+        console.log(e);
         res.redirect("/");
     }
 });

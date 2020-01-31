@@ -63,6 +63,48 @@ async function renderNewPage(res, products, hasError = false) {
     }
 }
 
+/*
+ * GET view_product route
+ */
+router.get("/view_product/:id", async (req, res) => {
+    await renderNewPage(res, new Product());
+});
+
+/*
+ * GET edit_product route
+ */
+router.get("/edit_product/:id", async (req, res) => {
+    await renderNewPage(res, new Product());
+});
+
+/*
+ * PUT edit_product route
+ */
+router.put("/edit_product/:id", async (req, res) => {
+    await renderNewPage(res, new Product());
+});
+
+/*
+ * DELETE edit_product route
+ */
+router.delete("/:id", async (req, res) => {
+    let  product;
+    try {
+        product = await Product.findById(req.params.id);
+        await product.remove();
+        res.redirect("/admin/products");
+    }catch (e) {
+        if (product != null) {
+            res.render("/", {
+                product: product,
+                errorMessage: "Could not remove product"
+            });
+        }else {
+            res.redirect("/");
+        }
+    }
+});
+
 function saveImage(product, imageEncode) {
     if (imageEncode == null) return;
     const image = JSON.parse(imageEncode);
