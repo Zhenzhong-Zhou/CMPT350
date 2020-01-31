@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const path = require("path");
-const coverImageBasePath = "upload/productCovers";
 
 // Product Schema
 const productSchema = mongoose.Schema({
@@ -21,7 +19,11 @@ const productSchema = mongoose.Schema({
         required: true,
         default: Date.now
     },
-    productImageName: {
+    productImage: {
+        type: Buffer,
+        required: true
+    },
+    coverImageType: {
         type: String,
         required: true
     },
@@ -33,10 +35,9 @@ const productSchema = mongoose.Schema({
 });
 
 productSchema.virtual("coverImagePath").get(function () {
-    if (this.productImageName != null) {
-        return path.join("/", coverImageBasePath, this.productImageName);
+    if (this.productImage != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.productImage.toString('base64')}`
     }
 });
 
 module.exports = mongoose.model("Product", productSchema);
-module.exports.coverImageBasePath = coverImageBasePath;

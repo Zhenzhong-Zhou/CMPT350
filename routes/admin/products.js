@@ -2,17 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Product = require("../../models/admin/product");
 const Category = require("../../models/admin/category");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-const uploadPath = path.join("public", Product.coverImageBasePath);
 const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
-const upload = multer({
-    dest: uploadPath,
-    fileFilter: (req, file, callback) => {
-        callback(null, imageMimeTypes.includes(file.mimetype));
-    }
-});
 
 /*
  * GET product index route
@@ -43,31 +33,21 @@ router.get("/add_product", async (req, res) => {
 /*
  * POST add_product route
  */
-router.post("/add_product", upload.single("cover"), async (req, res) => {
-    const fileName = req.file != null ? req.file.filename : null;
+router.post("/add_product", async (req, res) => {
     const product = new Product({
         product: req.body.product,
         category: req.body.category,
         price: req.body.price,
-        productImageName: fileName,
         description: req.body.description
     });
+    saveImage(product, req.body.cover);
     try {
         await product.save();
         res.redirect("/admin/products");
     }catch (e) {
-        if (product.productImageName != null) {
-            removeProductCover(product.productImageName);
-        }
         await renderNewPage(res, product, true);
     }
 });
-
-function removeProductCover(fileName) {
-    fs.unlink(path.join(uploadPath, fileName), err => {
-        if (err) console.error(err);
-    })
-}
 
 async function renderNewPage(res, products, hasError = false) {
     try {
@@ -80,6 +60,15 @@ async function renderNewPage(res, products, hasError = false) {
         res.render("admin/products/add_product", params);
     }catch (e) {
         res.redirect("admin/products");
+    }
+}
+
+function saveImage(product, imageEncode) {
+    if (imageEncode == null) return;
+    const image = JSON.parse(imageEncode);
+    if (image != null && imageMimeTypes.includes(image.type)) {
+        product.productImage = new Buffer.from(image.data, 'base64');
+        product.coverImageType = image.type;
     }
 }
 
