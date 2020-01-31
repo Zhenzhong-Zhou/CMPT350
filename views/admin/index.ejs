@@ -1,3 +1,4 @@
+<%- include("../layouts/admin/layout.ejs"); -%>
 <%- include("../partials/admin/header.ejs"); -%>
 <h1>Recently Changes</h1>
 <table class="table table-striped sorting">
@@ -26,4 +27,11 @@
     <%}%>
     </tbody>
 </table>
-<%- include("../layouts/admin/layout.ejs"); -%>
+
+<div>
+    <%products.forEach(product => {%>
+        <img height="150" width="100" src="<%=product.coverImagePath%>">
+    <%})%>
+</div>
+
+<%- include("../partials/admin/footer.ejs"); -%>
