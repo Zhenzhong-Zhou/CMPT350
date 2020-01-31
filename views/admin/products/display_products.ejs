@@ -2,18 +2,24 @@
     <thead>
     <tr>
         <th>Product</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Product Image</th>
         <th>View</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
     </thead>
     <tbody>
-    <%if (locals.categories != null) {%>
+    <%if (locals.products != null) {%>
         <%products.forEach(product => {%>
     <tr>
+        <td><%=product.product%></td>
+        <td><%=product.price%></td>
         <td><%=product.category%></td>
-        <td><a href="/admin/pages/view_page/<%=product._id%>">View</a></td>
-        <td><a href="/admin/pages/edit_page/<%=product._id%>">Edit</a></td>
+        <td><img height="150" width="100" src="<%=product.coverImagePath%>"></td>
+        <td><a href="/admin/products/view_page/<%=product._id%>">View</a></td>
+        <td><a href="/admin/products/edit_page/<%=product._id%>">Edit</a></td>
         <%- include("../../partials/deleteForm.ejs", {url: `/admin/products/${product._id}`}); -%>
     </tr>
     <%})%>

@@ -8,9 +8,9 @@
     <select class="product_category" name = "category">
         <%categories.forEach(category => {%>
             <%if (category.id === products.category) {%>
-                <option selected label="<%=category.category%>" value="<%=category.id%>">
+                <option class="category_name" selected label="<%=category.category%>" value="<%=category.id%>">
             <%}else {%>
-                <option label="<%=category.category%>" value="<%=category.id%>">
+                <option class="category_name" label="<%=category.category%>" value="<%=category.id%>">
                 <%}%>
         <%})%>
     </select>
@@ -18,5 +18,15 @@
 
 <div>
     <label>Price</label>
-    <input type="text" name="price" placeholder="Price" value="<%=products.price%>">
+    <input type="number" name="price" placeholder="Price" min="0.5" value="<%=products.price%>">
+</div>
+
+<div>
+    <label>Image</label>
+    <input type="file" name="cover">
+</div>
+
+<div>
+    <label>Description</label>
+    <textarea name="description" placeholder="Description"><%=products.description%></textarea>
 </div>
