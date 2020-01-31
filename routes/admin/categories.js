@@ -72,14 +72,41 @@ router.get("/edit_category/:id", async (req, res) => {
  * PUT edit_category route
  */
 router.put("/edit_category/:id", async (req, res) => {
-    res.send("PUT Edit Category: " + req.params.id);
+    let category;
+    try {
+        category = await Category.findById(req.params.id);
+        category.category = req.body.category;
+        await category.save();
+        res.redirect("/admin/categories");
+    }catch (e) {
+        if (category == null) {
+            res.redirect("/admin/categories");
+        }else {
+            res.render("admin/categories/category", {
+                category: category,
+                errorMessage: "Error Editing Category"
+            })
+        }
+    }
 });
 
 /*
  * DELETE delete_category route
  */
 router.delete("/:id", async (req, res) => {
-    res.send("Delete Category: " + req.params.id);
+    let category;
+    try {
+        category = await Category.findById(req.params.id);
+        category.category = req.body.category;
+        await category.remove();
+        res.redirect("/admin/categories");
+    }catch (e) {
+        if (category == null) {
+            res.redirect("/admin/categories");
+        }else {
+            res.redirect("/admin/categories");
+        }
+    }
 });
 
 module.exports = router;
