@@ -38,6 +38,13 @@ router.post("/add_category", async (req, res) => {
     });
     try {
         await category.save();
+        Category.find((err, categories) => {
+            if (err) {
+                console.log(err);
+            }else {
+                req.app.locals.categories = categories;
+            }
+        });
         res.redirect("/admin/categories");
     }catch (e) {
         res.render("admin/categories/category", {
@@ -88,6 +95,13 @@ router.put("/edit_category/:id", async (req, res) => {
         category = await Category.findById(req.params.id);
         category.category = req.body.category;
         await category.save();
+        Category.find((err, categories) => {
+            if (err) {
+                console.log(err);
+            }else {
+                req.app.locals.categories = categories;
+            }
+        });
         res.redirect("/admin/categories");
     }catch (e) {
         if (category == null) {
@@ -110,6 +124,14 @@ router.delete("/:id", async (req, res) => {
         category = await Category.findById(req.params.id);
         category.category = req.body.category;
         await category.remove();
+
+        Category.find((err, categories) => {
+            if (err) {
+                console.log(err);
+            }else {
+                req.app.locals.categories = categories;
+            }
+        });
         res.redirect("/admin/categories");
     }catch (e) {
         if (category == null) {

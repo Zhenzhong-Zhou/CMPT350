@@ -1,5 +1,15 @@
 <%- include("../partials/user/header.ejs"); -%>
 
 <%-content%>
+<div class="category">
+    <span>All Categories</span>
+    <div class="dropdown-category">
+        <li><a href="/products">All Products</a></li>
+        <%categories.forEach(category => {%>
+            <li><a href="/products/<%=category.slug%>"><%=category.category%></a></li>
+        <%})%>
+    </div>
+</div>
+
 <%- include("../layouts/user/layout.ejs"); -%>
 <%- include("../partials/user/footer.ejs"); -%>

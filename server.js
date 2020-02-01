@@ -47,12 +47,12 @@ Page.find({}).sort({sorting: 1}).exec((err, pages) => {
 // Get category model
 const Category = require("./models/category");
 
-// Get all pages
-Page.find({}).sort({sorting: 1}).exec((err, pages) => {
+// Get all categories
+Category.find((err, categories) => {
     if (err) {
         console.log(err);
     }else {
-        app.locals.pages = pages;
+        app.locals.categories = categories;
     }
 });
 
