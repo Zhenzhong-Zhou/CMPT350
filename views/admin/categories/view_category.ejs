@@ -8,7 +8,9 @@
 <%if (productsByCategory.length > 0) {%>
     <h2>Products By Category</h2>
     <%productsByCategory.forEach(product => {%>
-        <img height="150" width="100" src="<%=product.coverImagePath%>">
+        <a href="/admin/products/view_product/<%=product.id%>">
+            <img height="150" width="100" src="<%=product.coverImagePath%>">
+        </a>
     <%})%>
 <%}%>
 

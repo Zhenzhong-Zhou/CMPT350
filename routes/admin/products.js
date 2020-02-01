@@ -53,25 +53,54 @@ router.post("/add_product", async (req, res) => {
  * GET view_product route
  */
 router.get("/view_product/:id", async (req, res) => {
-    await renderNewPage(res, new Product());
+    try {
+        const products = await Product.findById(req.params.id).populate("category").exec();
+        res.render("admin/products/view_product", {products: products})
+    }catch (e) {
+        res.redirect("/admin/products");
+    }
 });
 
 /*
  * GET edit_product route
  */
 router.get("/edit_product/:id", async (req, res) => {
-    await renderNewPage(res, new Product());
+    try {
+        const product = await Product.findById(req.params.id);
+        await renderEditPage(res, product);
+    }catch (e) {
+        res.redirect("/admin/products");
+    }
+
 });
 
 /*
  * PUT edit_product route
  */
 router.put("/edit_product/:id", async (req, res) => {
-    await renderNewPage(res, new Product());
+    let product;
+    try {
+        product = await Product.findById(req.params.id);
+        product.product = req.body.product;
+        product.category = req.body.category;
+        product.price = req.body.price;
+        product.description = req.body.description;
+        if (req.body.cover != null && req.body.cover !== "") {
+            saveImage(product, req.body.cover)
+        }
+        await product.save();
+        res.redirect("/admin/products/");
+    }catch (e) {
+        if (product != null) {
+            await renderNewPage(res, product, true);
+        }else {
+            res.redirect("/admin/products");
+        }
+    }
 });
 
 /*
- * DELETE edit_product route
+ * DELETE delete_product route
  */
 router.delete("/:id", async (req, res) => {
     let  product;
@@ -101,14 +130,28 @@ function saveImage(product, imageEncode) {
 }
 
 async function renderNewPage(res, products, hasError = false) {
+    await renderFormPage(res, products, "add_product", hasError);
+}
+
+async function renderEditPage(res, products, hasError = false) {
+    await renderFormPage(res, products, "edit_product", hasError);
+}
+
+async function renderFormPage(res, products, form, hasError = false) {
     try {
         const categories = await Category.find({});
         const params = {
             categories: categories,
             products: products
         };
-        if (hasError) params.errorMessage = "Error Creating Product";
-        res.render("admin/products/add_product", params);
+        if (hasError) {
+            if (form === "edit_product") {
+                params.errorMessage = "Error Editing Product";
+            }else {
+                params.errorMessage = "Error Adding Product";
+            }
+        }
+        res.render(`admin/products/${form}`, params);
     }catch (e) {
         res.redirect("admin/products");
     }

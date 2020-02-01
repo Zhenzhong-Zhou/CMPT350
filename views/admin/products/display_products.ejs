@@ -18,8 +18,8 @@
         <td><%=product.price%></td>
         <td><%=product.category%></td>
         <td><img height="150" width="100" src="<%=product.coverImagePath%>"></td>
-        <td><a href="/admin/products/view_page/<%=product._id%>">View</a></td>
-        <td><a href="/admin/products/edit_page/<%=product._id%>">Edit</a></td>
+        <td><a href="/admin/products/view_product/<%=product._id%>">View</a></td>
+        <td><a href="/admin/products/edit_product/<%=product._id%>">Edit</a></td>
         <%- include("../../partials/deleteForm.ejs", {url: `/admin/products/${product._id}`}); -%>
     </tr>
     <%})%>

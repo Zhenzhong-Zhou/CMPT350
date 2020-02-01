@@ -1,7 +1,7 @@
 <%- include("../../partials/admin/header.ejs"); -%>
 <br>
 <br>
-<h1>Add Product</h1>
+<h1>Edit Product</h1>
 <a href="/admin/products">Back To Products</a>
 <br>
 <div>
@@ -9,12 +9,11 @@
 </div>
 <br>
 <br>
-<form action="/admin/products/add_product" method="post">
+<form action="/admin/products/edit_product/<%=products._id%>?_method=PUT" method="post">
     <%- include("../../admin/products/_form_fileds.ejs"); -%>
-    <a href="/admin/products">Cancel</a>
-    <button type="submit">Create</button>
+    <a href="/admin/products/">Cancel</a>
+    <button type="submit">Update</button>
 </form>
 <br>
 <br>
 <%- include("../../layouts/admin/layout.ejs"); -%>
-<%- include("../../partials/admin/footer.ejs"); -%>

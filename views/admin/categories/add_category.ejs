@@ -4,6 +4,10 @@
 <h1>Add Category</h1>
 <a href="/admin/categories">Back To Categories</a>
 <br>
+<div>
+    <%- include("../../partials/errorMessage.ejs"); -%>
+</div>
+<br>
 <br>
 <form action="/admin/categories/add_category" method="post">
     <%- include("../../admin/categories/_form_fileds.ejs"); -%>

@@ -4,6 +4,10 @@
 <h1>Edit Page</h1>
 <a href="/admin/pages">Back To Pages</a>
 <br>
+<div>
+    <%- include("../../partials/errorMessage.ejs"); -%>
+</div>
+<br>
 <br>
 <form action="/admin/pages/edit_page/<%=pages._id%>?_method=PUT" method="post">
     <%- include("../../admin/pages/_form_fileds.ejs"); -%>

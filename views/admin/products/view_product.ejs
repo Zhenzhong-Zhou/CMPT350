@@ -1,0 +1,21 @@
+<%- include("../../layouts/admin/layout.ejs"); -%>
+<%- include("../../partials/admin/header.ejs"); -%>
+<h2><%=products.product%></h2>
+<img width="100" height="150" src="<%=products.coverImagePath%>" alt="image">
+<div>
+    Category: <%=products.category.category%>
+</div>
+
+<div>
+    Price: <%=products.price%>
+</div>
+
+<div>
+    Description: <%=products.description%>
+</div>
+
+<a href="/admin/products/edit_product/<%=products._id%>">Edit</a>
+<%- include("../../partials/deleteForm.ejs", {url: `/admin/products/${products._id}`}); -%>
+<a href="/admin/categories/view_category/<%=products.category._id%>">View Category</a>
+
+<%- include("../../partials/admin/footer.ejs"); -%>
