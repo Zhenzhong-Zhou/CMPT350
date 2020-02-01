@@ -16,12 +16,14 @@ db.once('open', function() {
 // Initialize app
 const app = express();
 
-// Set up routes
-const indexRouter = require("./routes/user/index");
+// Set up admin routes
 const adminIndexRouter = require("./routes/admin/index");
 const adminPageRouter = require("./routes/admin/pages");
 const adminCategoryRouter = require("./routes/admin/categories");
 const adminProductRouter = require("./routes/admin/products");
+
+// Set up user routes
+const userPageRouter = require("./routes/user/pages");
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -31,7 +33,19 @@ app.set("views", __dirname + "/views");
 app.use(express.static("public"));
 
 // Get page model
-const Page = require("./models/admin/page");
+const Page = require("./models/page");
+
+// Get all pages
+Page.find({}).sort({sorting: 1}).exec((err, pages) => {
+    if (err) {
+        console.log(err);
+    }else {
+        app.locals.pages = pages;
+    }
+});
+
+// Get category model
+const Category = require("./models/category");
 
 // Get all pages
 Page.find({}).sort({sorting: 1}).exec((err, pages) => {
@@ -59,12 +73,14 @@ app.use(session({
 // Method Overrider Library
 app.use(methodOverride("_method"));
 
-// app use routers
-app.use("/", indexRouter);
+// App use admin routers
 app.use("/admin", adminIndexRouter);
 app.use("/admin/pages", adminPageRouter);
 app.use("/admin/categories", adminCategoryRouter);
 app.use("/admin/products", adminProductRouter);
+
+// App use user routers
+app.use("/", userPageRouter);
 
 let port = 3000;
 app.listen(process.env.PORT || port, () => {

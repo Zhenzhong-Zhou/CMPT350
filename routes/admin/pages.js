@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Page = require("../../models/admin/page");
+const Page = require("../../models/page");
 
 /*
  * GET page index route

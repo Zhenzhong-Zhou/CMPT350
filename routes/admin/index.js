@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Page = require("../../models/admin/page");
-const Category = require("../../models/admin/category");
-const Product = require("../../models/admin/product");
+const Page = require("../../models/page");
+const Category = require("../../models/category");
+const Product = require("../../models/product");
 
 /*
  * GET admin index route

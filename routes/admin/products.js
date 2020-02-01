@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../../models/admin/product");
-const Category = require("../../models/admin/category");
+const Product = require("../../models/product");
+const Category = require("../../models/category");
 const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
 
 /*
