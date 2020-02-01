@@ -30,6 +30,18 @@ app.set("views", __dirname + "/views");
 // Static public folder
 app.use(express.static("public"));
 
+// Get page model
+const Page = require("./models/admin/page");
+
+// Get all pages
+Page.find({}).sort({sorting: 1}).exec((err, pages) => {
+    if (err) {
+        console.log(err);
+    }else {
+        app.locals.pages = pages;
+    }
+});
+
 // Body parser middleware
 // create application/json parser
 app.use(bodyParser.json());

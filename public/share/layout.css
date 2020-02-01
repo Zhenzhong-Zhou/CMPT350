@@ -16,6 +16,13 @@ body {
     text-decoration: none;
 }
 
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
 .dropdown {
     float: right;
     overflow: hidden;

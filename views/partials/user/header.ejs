@@ -1,7 +1,14 @@
 <nav class="navbar">
     <a class="brand">Tao Bao</a>
-    <a href="">Home</a>
-    <a href="">News</a>
+    <ul class="nav">
+        <%pages.forEach(page => {%>
+            <%if (page.slug == "home") {%>
+                <li><a href="/"><%=page.title%></a></li>
+            <%}else {%>
+                <li><a href="<%=page.slug%>"><%=page.title%></a></li>
+            <%}%>
+        <%})%>
+    </ul>
     <div class="dropdown">
         <li class="dropdown-menu">User Management</li>
         <div class="dropdown-content">
