@@ -24,6 +24,7 @@ const adminProductRouter = require("./routes/admin/products");
 
 // Set up user routes
 const userPageRouter = require("./routes/user/pages");
+const userProductRouter = require("./routes/user/products");
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -81,6 +82,7 @@ app.use("/admin/products", adminProductRouter);
 
 // App use user routers
 app.use("/", userPageRouter);
+app.use("/products", userProductRouter);
 
 let port = 3000;
 app.listen(process.env.PORT || port, () => {

@@ -1,0 +1,24 @@
+<%- include("../../layouts/user/layout.ejs"); -%>
+<%- include("../../partials/user/header.ejs"); -%>
+<div>
+    <h1>hello</h1>
+    <%if (locals.products != null) {%>
+        <%products.forEach(product => {%>
+            <div>
+                <a href="/products/<%=product.category%>/<%=product.product%>">
+                    <img src="<%=product.coverImagePath%>" alt="product image">
+                </a>
+                <h3><%=product.product%></h3>
+                <h3><%=product.price%></h3>
+                <a href="/products/<%=product.category%>/<%=product.id%>">View Details</a>
+            </div>
+        <%})%>
+    <%}%>
+</div>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<%- include("../../partials/user/footer.ejs"); -%>

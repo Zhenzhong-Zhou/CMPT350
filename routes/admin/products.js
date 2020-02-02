@@ -36,6 +36,7 @@ router.get("/add_product", async (req, res) => {
 router.post("/add_product", async (req, res) => {
     const product = new Product({
         product: req.body.product,
+        slug: req.body.slug,
         category: req.body.category,
         price: req.body.price,
         description: req.body.description

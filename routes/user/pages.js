@@ -3,7 +3,7 @@ const router = express.Router();
 const Page = require("../../models/page");
 
 /*
- * GET
+ * GET home page
  */
 router.get("/", (req, res) => {
     Page.findOne({slug: "home"}, (err, page) => {
@@ -32,13 +32,5 @@ router.get("/:slug", (req, res) => {
         }
     });
 });
-
-/*
- * GET
- */
-router.get("/", (req, res) => {
-    res.render("user/index");
-});
-
 
 module.exports = router;
