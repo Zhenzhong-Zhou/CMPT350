@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
@@ -5,13 +8,13 @@ const session = require("express-session");
 const methodOverride = require("method-override");
 const config = require("./config/database");
 
-// Connect to database
-mongoose.connect(config.database, {useNewUrlParser: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("Connected to MongoDB....");
-});
+// // Connect to database
+// mongoose.connect(config.database, {useNewUrlParser: true});
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     console.log("Connected to MongoDB....");
+// });
 
 // Initialize app
 const app = express();
@@ -84,7 +87,14 @@ app.use("/admin/products", adminProductRouter);
 app.use("/", userPageRouter);
 app.use("/products", userProductRouter);
 
-let port = 3000;
-app.listen(process.env.PORT || port, () => {
-    console.log("Server is running on port " + port + "...");
-});
+// use setting.js or .env may include sensitive info
+const db = mongoose.connection;
+db.on("error", error => console.error(error));
+db.once("open", () => console.log("Connected to Mongoose"));
+
+const PORT = process.env.PORT || 3001;
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => app.listen(PORT, () => console.log(`Server is running on port: ${PORT}`)))
+    .catch((error) => console.log(error));
+
+mongoose.set("useFindAndModify", false);
